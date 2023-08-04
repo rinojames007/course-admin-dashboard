@@ -17,7 +17,9 @@ function SignIn() {
         const response = await fetch('/admin/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "username":username,
+                "password": password
             },
             body: JSON.stringify(data)
         });
