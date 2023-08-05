@@ -13,9 +13,6 @@ function SignUp() {
 
         const response = await fetch('/admin/signup', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify(data)
         });
         if(response.ok) {

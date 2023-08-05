@@ -1,12 +1,13 @@
-import {Button, Card, CircularProgress,TextField, Typography} from '@mui/material';
+import {Button, Card, CircularProgress, TextField, Typography} from '@mui/material';
 import Appbar from "./components/Appbar.jsx";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
-
+    const navigate = useNavigate();
     async function handleSignin() {
         setLoading(true)
         const data = {
@@ -27,14 +28,13 @@ function SignIn() {
             const { token } = responseData;
             localStorage.setItem('token', token);
             setUser(username);
-            setLoading(false)
+            setLoading(false);
+            navigate('/addcourse');
         }
     }
-
     function handleLogout() {
         setUser(null);
     }
-
     return (
         <>
             <Appbar user={user} handleLogout={handleLogout} />
