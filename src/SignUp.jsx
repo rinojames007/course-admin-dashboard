@@ -1,26 +1,27 @@
 import {Button, Card, TextField, Typography} from '@mui/material';
 import Appbar from "./components/Appbar.jsx";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
+
+
 function SignUp() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
+    const navigate = useNavigate();
     async function handleSignup() {
         const data = {
             username: username,
             password: password
         };
 
-        const response = await fetch('/admin/signup', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        });
-        if(response.ok) {
-            const responseData = await response.json();
-            const { token } = responseData;
+        await axios.post('/admin/signup', data, {
+            method: 'GET'
+        }).then(res => {
+            const { token } = res.data;
             localStorage.setItem('token', token);
-            console.log("singup successfull")
-        }
+            navigate('/addcourse');
+        })
     }
 
     return (

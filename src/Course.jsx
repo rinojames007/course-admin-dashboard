@@ -1,31 +1,55 @@
 import {useEffect, useState} from "react";
+import axios from "axios";
+import {Button, Card, Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-function Course() {
-    const [course, setCourse] = useState([]);
+function Courses() {
+    const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch('/admin/course', {
-                method: 'GET',
+        async function fetchData() {
+            axios.get('/admin/course/view', {
+                method: "GET",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': "Bearer " + localStorage.getItem('token')
+                    Authorization: 'Bearer ' + localStorage.getItem("token")
                 }
+            }).then(res => {
+                setCourses(res.data.course);
             })
-            if(response.ok) {
-                const responseData = await response.json()
-                const { allCourses } = responseData;
-                console.log(allCourses)
-            }
         }
         fetchData();
     }, []);
 
     return (
-        <>
-            hello world
-        </>
-    )
+        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+                {courses.map(course => (
+                    <Course course = {course}/>
+                ))}
+        </div>
+    );
 }
 
-export default Course;
+function Course({course}){
+    const navigate = useNavigate();
+
+    return <Card style={{
+        margin: 10,
+        width: 300,
+        minHeight: 200,
+        padding: 20
+    }}>
+        <Typography textAlign={"center"} variant="h5">{course.title}</Typography>
+        <Typography textAlign={"center"} variant="subtitle1">{course.description}</Typography>
+        <img src={course.imageLink} style={{width: 300}} ></img>
+        <div style={{display: "flex", justifyContent: "center", marginTop: 20}}>
+            <Button variant="contained" style={{marginRight: 20}} size="large" onClick={() => {
+                navigate("/course/" + course._id);
+            }}>Edit</Button>
+            <Button variant="contained" color="error" size="large" onClick={() => {
+                navigate("/course/" + course._id);
+            }}>Delete</Button>
+        </div>
+    </Card>
+}
+
+export default Courses;

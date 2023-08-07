@@ -2,6 +2,8 @@ import {Button, Card, CircularProgress, TextField, Typography} from '@mui/materi
 import Appbar from "./components/Appbar.jsx";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+
 function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,22 +17,15 @@ function SignIn() {
             password: password
         };
 
-        const response = await fetch('/admin/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-
-        if(response.ok) {
-            const responseData = await response.json();
-            const { token } = responseData;
+        await axios.post('/admin/login', data, {
+            method: "POST"
+        }).then(res => {
+            const { token } = res.data;
             localStorage.setItem('token', token);
             setUser(username);
             setLoading(false);
             navigate('/addcourse');
-        }
+        })
     }
     function handleLogout() {
         setUser(null);

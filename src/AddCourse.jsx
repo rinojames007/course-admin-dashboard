@@ -1,6 +1,7 @@
 import AppBar from "./components/Appbar.jsx";
 import {Button, Card, Checkbox, CircularProgress, TextField, Typography} from '@mui/material';
 import {useState} from "react";
+import axios from "axios";
 function AddCourse () {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -19,18 +20,14 @@ function AddCourse () {
             published
         }
 
-        const response = await fetch('/admin/course/add', {
+        await axios.post('/admin/course/add', data, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization' : "Bearer " + localStorage.getItem("token")
-            },
-            body: JSON.stringify(data)});
-        if(response.ok) {
-            const responseData = await response.json();
-            console.log(responseData);
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }}).then(res => {
+            console.log(res.data);
             setLoading(false);
-        }
+        });
     }
 
     return (
