@@ -1,5 +1,4 @@
 import mongoose, { Document } from "mongoose";
-import exp from "constants";
 export interface adminInterface extends Document {
     username: string,
     password: string,
