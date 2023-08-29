@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
-interface adminInterface extends mongoose.Document {
+import mongoose, { Document } from "mongoose";
+import exp from "constants";
+export interface adminInterface extends Document {
     username: string,
     password: string,
 };
@@ -7,4 +8,7 @@ const adminSchema = new mongoose.Schema<adminInterface>({
     username: String,
     password: String
 });
-export default mongoose.model<adminInterface>('Admin', adminSchema);
+
+const Admin = mongoose.models.Admin || mongoose.model<adminInterface>('Admin', adminSchema);
+
+export default Admin;

@@ -9,7 +9,7 @@ const Signup = () => {
     const handleSignup = async () => {
         try {
             const response = await axios.post('/api/admin/signup', { username, password });
-            console.log(response)
+            console.log(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
