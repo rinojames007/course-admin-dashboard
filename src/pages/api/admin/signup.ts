@@ -1,15 +1,8 @@
-import mongoose from 'mongoose';
 import Admin from '@/models/Admin';
 import jwt from 'jsonwebtoken';
 import connectToDatabase from "@/lib/dbConnect";
 
 import type { NextApiRequest, NextApiResponse } from "next";
-
-type responseData = {
-    message: string,
-    token?: string
-}
-
 
 const adminSecret: any = process.env.NEXT_PUBLIC_adminSecret;
 
