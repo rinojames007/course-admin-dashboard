@@ -11,7 +11,8 @@ connectToDatabase();
 export default function handler( req: NextApiRequest, res: NextApiResponse ){
     console.log(req.body);
     const { username, password } = req.body;
-    Admin.findOne({ username }).then((admin: any) => {
+    Admin.findOne({ username })
+        .then((admin: any) => {
         if(admin){
             res.status(403).json({ message: 'user already exists'})
         } else {
