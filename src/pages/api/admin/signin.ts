@@ -14,7 +14,8 @@ export default function handler( req: NextApiRequest, res: NextApiResponse ){
     Admin.findOne({ username, password })
         .then(admin => {
             if(admin) {
-                const token = jwt.sign({ username }, adminSecret, { expiresIn: '2h' })
+                const token = jwt.sign({ username }, adminSecret, { expiresIn: '2h' });
+
                 res.status(200).json({ msg: 'logged in successfully', token: token});
             } else {
                 res.status(401).json({ message: "invalid credentials" });

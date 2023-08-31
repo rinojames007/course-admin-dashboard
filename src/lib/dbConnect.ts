@@ -1,8 +1,15 @@
 import mongoose, { ConnectOptions } from "mongoose";
 
+/**
+ * @type string URI - environment variable that stores the connection string
+ */
+const URI: string = process.env.NEXT_PUBLIC_connectionStr as string;
+/**
+ * Function that is used to connect to the mongoDB cloud instance
+ */
 const connectToDatabase = async () => {
     try {
-        await mongoose.connect('mongodb+srv://rinojames007:jamesrino@rinojames007.qxqdx3e.mongodb.net/?retryWrites=true&w=majority', {
+        await mongoose.connect(URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             dbName:"test",

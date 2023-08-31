@@ -14,4 +14,5 @@ const courseSchema = new mongoose.Schema<courseInterface>({
     imageLink: String,
     published: Boolean
 });
- export default mongoose.model<courseInterface>('Course', courseSchema);
+const Course = mongoose.models.Course || mongoose.model<courseInterface>('Course', courseSchema);
+ export default Course;
