@@ -10,7 +10,7 @@ const Signup = () => {
         try {
             const response = await axios.post('/api/admin/signin', { username, password });
             const { token } = response.data;
-            setCookie('token', token)
+            setCookie('token', token);
             console.log(getCookie('token'));
         } catch (error) {
             console.error('Error fetching data:', error);
